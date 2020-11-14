@@ -135,11 +135,11 @@ function ManualModalParent(props) {
 // the styling for questions can go here for now?
 function QuestionModal(props) {
   let {detectedObject, parentCallback} = props;
-  let [result, setResult] = useState(); // "R" or "W"
-  let [materialModal, setMaterialModal] = useState(false);
+  let [result, setResult] = useState(null); // "r" or "w"
+  let [nextStep, setNextStep] = useState(); // 'follow up', 'next', or 'material'
 
   // assuming these are the only options we will handle:
-  // container, jug, bottle, electronic, propane tanks
+  // container, jug, bottle, electronic, propane tanks, textiles
   // other will get handled differently
   let containerContent = [
     "Is the container empty and dry?",
@@ -152,71 +152,105 @@ function QuestionModal(props) {
     "Is it less than 5 liters?"
   ]
 
-  // button to go to next step
-  let finishButton = (
-    <Button variant="contained" onClick={() => setMaterialModal(true)}>Finish</Button>
-  )
-
   //default
   let content = (<div>Next results</div>)
 
-  if (detectedObject === 'box') {
-    content = (
-      <div>
-        {containerContent[0]}
-        {/* when buttons are clicked, should go to next page */}
-        <Button variant="contained">Yes</Button>
-        <Button variant="contained">No</Button>
-        {finishButton}
-      </div>
-    )
-  }
-
-  if (detectedObject === 'jug' || detectedObject === 'bottle') {
-    content = (
-      <div>
-        {jugContent[0]}
-        <Button variant="contained">Yes</Button>
-        <Button variant="contained">No</Button>
-        {finishButton}
-      </div>
-    )
-  }
-
-  if (detectedObject === 'electronic' || detectedObject === 'propane tank') {
-    content = (
-      <div>
-        Look for the closest disposal center near you! (google maps?)
-        {finishButton}
-      </div>
-    )
-  }
-
-  // why are we asking what material is this?
-
-  return (
-    <div>
-      <h1>Follow Up Questions: {detectedObject}</h1>
-      {content}
-      <Modal
-        open={materialModal}
-        onClose={parentCallback}
-      >
-        <div className="testModal">
-          <MaterialModal detectedObject={detectedObject}/>
+  while(result === null ) {
+    // Qs for Item types (Step 1)
+    if (detectedObject === 'box' || detectedObject === 'containers') {
+      content = (
+        <div>
+          {containerContent[0]}
+          <Button variant="contained" onClick={() => setNextStep('material')}>Yes</Button>
+          <Button variant="contained" onClick={() => setNextStep('follow up')}>No</Button>
         </div>
-      </Modal>
-    </div>
-  )
-}
+      )
+      if (nextStep === 'follow up') {
+        content = (
+          <div>
+            {containerContent[1]}
+            <Button variant="contained" onClick={() => setNextStep('material')}>All Done!</Button>
+          </div>
+        )
+      }
+    }
+    else if (detectedObject === 'jugs' || detectedObject === 'bottles') {
+      content = (
+        <div>
+          {jugContent[0]}
+          <Button variant="contained" onClick={() => setNextStep('follow up')}>Yes</Button>
+          <Button variant="contained" nClick={() => setNextStep('next')}>No</Button>
+        </div>
+      ) 
+      if (nextStep === 'follow up') {
+          content = (
+            <div>
+              {jugContent[1]}
+              <Button variant="contained" onClick={() => setNextStep('next')}>All Done!</Button>
+            </div>
+          )
+      } if (nextStep === 'next') {
+          content = (
+            <div>
+              {jugContent[2]}
+              <Button variant="contained" onClick={() => setNextStep('material')}>Yes</Button>
+              <Button variant="contained" nClick={() => setResult('w')}>No</Button>
+            </div>
+          )
+        }
+    }
+    else if (detectedObject === 'electronics' || detectedObject === 'propane tanks') {
+      content = (
+        <div>
+          Look for the closest disposal center near you! (google maps?)
+        </div>
+      )
+    }
+    else {
+      setNextStep('material');
+    }
 
-// The API calls can go here for now? We can rearrange stuff later
-function MaterialModal(props) {
-  let {detectedObject} = props;
+    //Material Qs
+    if (nextStep === 'material') {
+      content = (
+        <div>
+          What material is your item made of?
+          <Button variant="contained" onClick={() => setNextStep('glass')}>Glass</Button>
+          <Button variant="contained" onClick={() => setNextStep('plastic')}>Plastic</Button>
+          <Button variant="contained" onClick={() => setResult('r')}>Metal</Button>
+          <Button variant="contained" onClick={() => setNextStep('paper')}>Paper</Button>
+          <Button variant="contained" onClick={() => setResult('w')}>Styrofoam</Button>
+        </div>
+      ) 
+      if (nextStep === 'glass') {
+        content = (
+          <div>
+            Is it broken?
+            <Button variant="contained" onClick={() => setResult('w')}>Yes</Button>
+            <Button variant="contained" onClick={() => setResult('r')}>No</Button>
+          </div>
+        )
+      } else if (nextStep === 'plastic') {
+        content = (
+          <div>
+            Please Enter the SPI Number. (form)
+          </div>
+        )
+      } else if (nextStep === 'paper') {
+        content = (
+          <div>
+            Is there a wax or plastic coating?
+            <Button variant="contained" onClick={() => setResult('w')}>Yes</Button>
+            <Button variant="contained" onClick={() => setResult('r')}>No</Button>
+          </div>
+        )
+      }
+    }
+  }
 
   return (
     <div>
-      something
+      <h1>End of Follow up Questions: {detectedObject} is {result}</h1>
     </div>
   )
 }
