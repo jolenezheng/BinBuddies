@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const vision = require('@google-cloud/vision');
 var cors = require('cors');
 
 var indexRouter = require('./routes/index');
@@ -10,6 +11,11 @@ var usersRouter = require('./routes/users');
 var testAPIRouter = require("./routes/testAPI");
 
 var app = express();
+
+// Creates a client
+const client = new vision.ImageAnnotatorClient({
+  keyFilename: '../../my-key.json'
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
