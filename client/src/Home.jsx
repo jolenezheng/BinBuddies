@@ -57,7 +57,7 @@ function Home(props) {
         onClose={handleCloseParent}
       >
         <div className="testModal">
-          <ManualModalParent />
+          <ManualModalParent parentCallback={handleCallback}/>
         </div>
       </Modal>
       <Modal
@@ -105,10 +105,29 @@ function ImageModalParent(props) {
   )
 }
 
-function ManualModalParent() {
+function ManualModalParent(props) {
+  let {parentCallback} = props;
+  const [detectedObject, setDetectedObject] = useState();
+    
+  let handleSubmit = () => {
+    //this happens on success - send the detectedObject to the parent
+    parentCallback(detectedObject);
+  }
+
   return (
     <div>
-      Manual entry (form)
+      What is your item?
+      <form>
+        <p><Button variant="contained" onClick={() => {setDetectedObject("Bottle")}}>Jugs or Bottles</Button></p>     
+        <p><Button variant="contained" onClick={() => {setDetectedObject("Containers")}}>Containers</Button></p>
+        <p><Button variant="contained" onClick={() => {setDetectedObject("Textiles")}}>Textiles</Button></p>
+        <p><Button variant="contained" onClick={() => {setDetectedObject("Electronics")}}>Electronics</Button></p>
+      <label>
+          Other: 
+            <input type = "text" name="other" />
+      </label>
+        <Button variant="contained" onClick={handleSubmit}>Submit</Button>
+      </form>
     </div>
   )
 }
