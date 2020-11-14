@@ -65,7 +65,7 @@ function Home(props) {
         onClose={handleCloseChild}
       >
         <div className="testModal">
-          <QuestionModal detectedObject={detectedObject}/>
+          <QuestionModal detectedObject={detectedObject} parentCallback={handleCloseChild}/>
         </div>
       </Modal>
     </div>
@@ -113,12 +113,91 @@ function ManualModalParent() {
   )
 }
 
+// the styling for questions can go here for now?
 function QuestionModal(props) {
+  let {detectedObject, parentCallback} = props;
+  let [result, setResult] = useState(); // "R" or "W"
+  let [materialModal, setMaterialModal] = useState(false);
+
+  // assuming these are the only options we will handle:
+  // container, jug, bottle, electronic, propane tanks
+  // other will get handled differently
+  let containerContent = [
+    "Is the container empty and dry?",
+    "Please dry the container"
+  ];
+
+  let jugContent = [
+    "Is there a straw or lid?",
+    "Please separate the straw and lid and send them to waste",
+    "Is it less than 5 liters?"
+  ]
+
+  // button to go to next step
+  let finishButton = (
+    <Button variant="contained" onClick={() => setMaterialModal(true)}>Finish</Button>
+  )
+
+  //default
+  let content = (<div>Next results</div>)
+
+  if (detectedObject === 'box') {
+    content = (
+      <div>
+        {containerContent[0]}
+        {/* when buttons are clicked, should go to next page */}
+        <Button variant="contained">Yes</Button>
+        <Button variant="contained">No</Button>
+        {finishButton}
+      </div>
+    )
+  }
+
+  if (detectedObject === 'jug' || detectedObject === 'bottle') {
+    content = (
+      <div>
+        {jugContent[0]}
+        <Button variant="contained">Yes</Button>
+        <Button variant="contained">No</Button>
+        {finishButton}
+      </div>
+    )
+  }
+
+  if (detectedObject === 'electronic' || detectedObject === 'propane tank') {
+    content = (
+      <div>
+        Look for the closest disposal center near you! (google maps?)
+        {finishButton}
+      </div>
+    )
+  }
+
+  // why are we asking what material is this?
+
+  return (
+    <div>
+      <h1>Follow Up Questions: {detectedObject}</h1>
+      {content}
+      <Modal
+        open={materialModal}
+        onClose={parentCallback}
+      >
+        <div className="testModal">
+          <MaterialModal detectedObject={detectedObject}/>
+        </div>
+      </Modal>
+    </div>
+  )
+}
+
+// The API calls can go here for now? We can rearrange stuff later
+function MaterialModal(props) {
   let {detectedObject} = props;
 
   return (
     <div>
-      Q&A for {detectedObject}
+      something
     </div>
   )
 }
