@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {Button, Modal} from '@material-ui/core/';
 import {Link} from "react-router-dom";
 import './App.css';
+import containerprompt from './imgs/containerprompt.png'
 
 function Home(props) {
   //closed by default
@@ -176,10 +177,9 @@ function QuestionModal(props) {
   // why are we asking what material is this?
 
   return (
-    <div>
-      <h1>Follow Up Questions: {detectedObject}</h1>
+    <div >
       {content}
-      <Modal
+      <Modal 
         open={materialModal}
         onClose={parentCallback}
       >
