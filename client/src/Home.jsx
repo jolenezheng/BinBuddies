@@ -89,10 +89,12 @@ function ImageModalParent(props) {
   }
   if (detectedObject) {
     return (
-      <div>
+      <div className = "submittedPrompt">
         Is {detectedObject} the item you submitted?
-        <Button variant="contained" onClick={handleSubmit}>Yes</Button>
-        <Button variant="contained" onClick={() => setDetectedObject(null)}>No</Button>
+        <div className = "containerButtonsStacked">
+        <Button className = "yesContainerStacked" variant="contained" onClick={handleSubmit}>Yes</Button>
+        <Button className = "noContainerStacked" variant="contained" onClick={() => setDetectedObject(null)}>No</Button>
+        </div>
       </div>
     )
   }
@@ -124,7 +126,7 @@ function QuestionModal(props) {
   // container, jug, bottle, electronic, propane tanks
   // other will get handled differently
   let containerContent = [
-    "Is the container empty and dry?",
+    "",
     "Please dry the container"
   ];
 
@@ -144,19 +146,20 @@ function QuestionModal(props) {
 
   if (detectedObject === 'box') {
     content = (
-      <div>
+      <div className="containerPrompt">
         {containerContent[0]}
         {/* when buttons are clicked, should go to next page */}
-        <Button variant="contained">Yes</Button>
-        <Button variant="contained">No</Button>
-        {finishButton}
+        <div className = "containerButtons">
+        <Button className = "yesContainer" variant="contained">Yes</Button>
+        <Button className = "noContainer" variant="contained">No</Button>
+        </div>
       </div>
     )
   }
 
   if (detectedObject === 'jug' || detectedObject === 'bottle') {
     content = (
-      <div>
+      <div className="jugPrompt">
         {jugContent[0]}
         <Button variant="contained">Yes</Button>
         <Button variant="contained">No</Button>
@@ -167,7 +170,7 @@ function QuestionModal(props) {
 
   if (detectedObject === 'electronic' || detectedObject === 'propane tank') {
     content = (
-      <div>
+      <div className="electronicPrompt">
         Look for the closest disposal center near you! (google maps?)
         {finishButton}
       </div>
