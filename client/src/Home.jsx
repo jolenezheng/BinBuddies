@@ -135,8 +135,14 @@ function ManualModalParent(props) {
 // the styling for questions can go here for now?
 function QuestionModal(props) {
   let {detectedObject, parentCallback} = props;
+  let [materialModal, setMaterialModal] = useState(false);
   let [result, setResult] = useState(null); // "r" or "w"
   let [nextStep, setNextStep] = useState(); // 'follow up', 'next', or 'material'
+
+  // button to go to next step
+  let finishButton = (
+    <Button variant="contained" onClick={() => setMaterialModal(true)}>Finish</Button>
+  )
 
   // assuming these are the only options we will handle:
   // container, jug, bottle, electronic, propane tanks, textiles
@@ -155,7 +161,7 @@ function QuestionModal(props) {
   //default
   let content = (<div>Next results</div>)
 
-  while(result === null ) {
+  while(result === null) {
     // Qs for Item types (Step 1)
     if (detectedObject === 'box' || detectedObject === 'containers') {
       content = (
@@ -179,7 +185,7 @@ function QuestionModal(props) {
         <div>
           {jugContent[0]}
           <Button variant="contained" onClick={() => setNextStep('follow up')}>Yes</Button>
-          <Button variant="contained" nClick={() => setNextStep('next')}>No</Button>
+          <Button variant="contained" onClick={() => setNextStep('next')}>No</Button>
         </div>
       ) 
       if (nextStep === 'follow up') {
@@ -194,7 +200,7 @@ function QuestionModal(props) {
             <div>
               {jugContent[2]}
               <Button variant="contained" onClick={() => setNextStep('material')}>Yes</Button>
-              <Button variant="contained" nClick={() => setResult('w')}>No</Button>
+              <Button variant="contained" onClick={() => setResult('w')}>No</Button>
             </div>
           )
         }
@@ -250,9 +256,30 @@ function QuestionModal(props) {
 
   return (
     <div>
-      <h1>End of Follow up Questions: {detectedObject} is {result}</h1>
+      <h1>Follow Up Questions: {detectedObject}</h1>
+      {content}
+      <Modal
+        open={materialModal}
+        onClose={parentCallback}
+      >
+        <div className="testModal">
+          <MaterialModal detectedObject={detectedObject}/>
+        </div>
+      </Modal>
     </div>
   )
 }
+
+// The API calls can go here for now? We can rearrange stuff later
+function MaterialModal(props) {
+  let {detectedObject} = props;
+
+  return (
+    <div>
+      something
+    </div>
+  )
+}
+
 
 export default Home;
