@@ -3,13 +3,16 @@ import {Button, Modal} from '@material-ui/core/';
 import {Link} from "react-router-dom";
 import './App.css';
 import history from './history';
+import defaultImage from './box.png';
 
 function Home(props) {
+  let {result} = props.history.location.state; // result from image api
+
   //closed by default
   const [uploadModal, setUploadModal] = useState(false);
   const [manualModal, setManualModal] = useState(false);
   const [questionModal, setQuestionModal] = useState(false);
-  const [detectedObject, setDetectedObject] = useState();
+  const [detectedObject, setDetectedObject] = useState(result || null);
 
   const handleUploadModal = () => {
     setUploadModal(true);
@@ -35,7 +38,13 @@ function Home(props) {
     // open the q&a modal, close parents
     handleCloseParent();
     setQuestionModal(true);
-	} 
+  }
+  
+  if (detectedObject) {
+    return (
+      <FetchModal detectedObject={detectedObject} parentCallback={handleCloseChild}/>
+    )
+  }
 
   return(
     <div>
@@ -61,14 +70,6 @@ function Home(props) {
           <ManualModalParent parentCallback={handleCallback}/>
         </div>
       </Modal>
-      <Modal
-        open={questionModal}
-        onClose={handleCloseChild}
-      >
-        <div className="testModal">
-          <FetchModal detectedObject={detectedObject} parentCallback={handleCloseChild}/>
-        </div>
-      </Modal>
     </div>
   )
 }
@@ -76,6 +77,7 @@ function Home(props) {
 function ImageModalParent(props) {
   let {parentCallback} = props;
   const [detectedObject, setDetectedObject] = useState();
+  let [selectedImage, setSelectedImage] = useState();
   
   let handleSubmit = () => {
     //this happens on success - send the detectedObject to the parent
@@ -83,10 +85,11 @@ function ImageModalParent(props) {
   }
 
   let handleUpload = () => {
-    // upload the image to the google thing, get the result
-    //set the detected object below to the state
-    setDetectedObject('box');
+      //    {/* image uploading would be here - select the image here somehow */}
+      // {/* do we just wanna put a fake image of choosing a picture? */}
+    setSelectedImage(defaultImage);
   }
+
   if (detectedObject) {
     return (
       <div>
@@ -99,9 +102,17 @@ function ImageModalParent(props) {
   // default - no object detected yet
   return (
     <div>
-      Upload picture (google cloud)
-      {/* image uploading would be here */}
-      <Button variant="contained" onClick={handleUpload}>Upload</Button>
+      <Button variant="contained" onClick={handleUpload}>
+        Select a picture
+      </Button>
+      <Link 
+        to={{
+            pathname: "/testAPI",
+            state: { image: defaultImage }
+          }}
+        >
+          <Button variant="contained">Upload</Button>
+      </Link>
     </div>
   )
 }
@@ -267,7 +278,7 @@ export function FinalResult(props) {
   //       }}
   // >
   // content here
-  //</Link>
+  // </Link>
   let {title, result, info} = props.history.location.state;
 
   return (
