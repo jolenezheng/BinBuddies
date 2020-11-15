@@ -18,3 +18,67 @@
     transform: rotate(360deg);
   }
 }
+
+/* questions screens */
+.isEmptyCleanDryModal {
+  width: 375px;
+  height: 667px;
+  background-image: url("./imgs/isemptyanddry_.png");
+  margin-top: 0px;
+}
+
+.emptyCleanDryModal {
+  width: 375px;
+  height: 667px;
+  background-image: url("./imgs/emptycleandry.png");
+  margin-top: 0px;
+}
+
+.isStrawOrLidModal {
+  width: 375px;
+  height: 667px;
+  background-image: url("./imgs/isStrawOrLid_.png");
+  margin-top: 0px;
+}
+
+.lidsOutModal {
+  width: 375px;
+  height: 667px;
+  background-image: url("./imgs/lidsout.png");
+  margin-top: 0px;
+}
+
+.litersModal {
+  width: 375px;
+  height: 667px;
+  background-image: url("./imgs/liters.png");
+  margin-top: 0px;
+}
+
+.yesButtonQ{
+  position: absolute;
+  top: 500px;
+  right: 10px;
+  width: 140px;
+  height: 50px;
+  opacity: 0;
+}
+
+.noButtonQ{
+  position: absolute;
+  top: 500px;
+  left: 15px;
+  width: 140px;
+  height: 50px;
+  opacity: 0;
+}
+
+.allDoneButtonQ{
+  position: absolute;
+  top: 500px;
+  left: 0px;
+  width: 290px;
+  height: 50px;
+  opacity: 0;
+}
+

@@ -139,7 +139,7 @@ function ManualModalParent(props) {
 export function FetchModal(props) {
   let {detectedObject} = props;
 
-  let currentObject = (props.history.location.state || detectedObject || "box"); // result from image api
+  let currentObject = (props.history.location.state || detectedObject || "jugs"); // result from image api
 
   let [init, setInit] = useState(false);
   let [data, setData] = useState();
@@ -158,7 +158,7 @@ export function FetchModal(props) {
   }
 
   let url = `https://data.edmonton.ca/resource/gtej-pcij.json?$where=material_title like '%25${currentObject}%25'`;
-  if (predefined.includes(currentObject) || 'box') // COMMENT IN TO ACCESS QS FLOW
+  if (predefined.includes(currentObject) || 'jugs') // COMMENT IN TO ACCESS QS FLOW
   {
     // go straight to question/answer flow
     return (<QuestionModal detectedObject={currentObject}/>)
@@ -198,7 +198,7 @@ export function FetchModal(props) {
             </Link>
           )
       })}
-    </div>
+    </div> 
   )
 }
 
@@ -208,6 +208,7 @@ function QuestionModal(props) {
   let [nextStep, setNextStep] = useState(); // 'follow up', 'next', or 'material'
   let [materialType, setMaterialType] = useState();
   let [materialStream, setMaterialStream] = useState();
+  let [SPI, setSPI] = useState();
 
   // assuming these are the only options we will handle:
   // container, jug, bottle, electronic, propane tanks, textiles
@@ -237,42 +238,38 @@ function QuestionModal(props) {
     // Qs for Item types (Step 1)
     if (detectedObject === 'box' || detectedObject === 'containers') {
       content = (
-        <div>
-          {containerContent[0]}
-          <Button variant="contained" onClick={() => setNextStep('material')}>Yes</Button>
-          <Button variant="contained" onClick={() => setNextStep('follow up')}>No</Button>
+        <div className = "isEmptyCleanDryModal" >
+          <Button className="yesButtonQ" onClick={() => setNextStep('material')}>Yes</Button>
+          <Button className="noButtonQ" onClick={() => setNextStep('follow up')}>No</Button>
         </div>
       )
       if (nextStep === 'follow up') {
         content = (
-          <div>
-            {containerContent[1]}
-            <Button variant="contained" onClick={() => setNextStep('material')}>All Done!</Button>
+          <div className = "emptyCleanDryModal">
+            <Button className="allDoneButtonQ" onClick={() => setNextStep('material')}>All Done!</Button>
           </div>
         )
       }
     }
     else if (detectedObject === 'jugs' || detectedObject === 'bottles') {
       content = (
-        <div>
-          {jugContent[0]}
-          <Button variant="contained" onClick={() => setNextStep('follow up')}>Yes</Button>
-          <Button variant="contained" onClick={() => setNextStep('next')}>No</Button>
+        <div className = "isStrawOrLidModal">
+          <Button className="yesButtonQ" onClick={() => setNextStep('follow up')}>Yes</Button>
+          <Button className="noButtonQ" onClick={() => setNextStep('next')}>No</Button>
         </div>
       ) 
       if (nextStep === 'follow up') {
           content = (
-            <div>
+            <div className="lidsOutModal">
               {jugContent[1]}
-              <Button variant="contained" onClick={() => setNextStep('next')}>All Done!</Button>
+              <Button className="allDoneButtonQ" onClick={() => setNextStep('next')}>All Done!</Button>
             </div>
           )
       } if (nextStep === 'next') {
           content = (
-            <div>
-              {jugContent[2]}
-              <Button variant="contained" onClick={() => setNextStep('material')}>Yes</Button>
-              <Button variant="contained" onClick={() => setResult('w')}>No</Button>
+            <div className = 'litersModal'>
+              <Button className="yesButtonQ" onClick={() => setNextStep('material')}>Yes</Button>
+              <Button className="noButtonQ" onClick={() => setResult('w')}>No</Button>
             </div>
           )
         }
@@ -311,15 +308,29 @@ function QuestionModal(props) {
       } else if (materialType === 'plastic') {
         content = (
           <div>
-            <form>
+            What is the SPI number shown on your item?
+            <Button variant="contained" onClick={() => setSPI('1')}>1</Button>
+            <Button variant="contained" onClick={() => setSPI('2')}>2</Button>
+            <Button variant="contained" onClick={() => setSPI('3')}>3</Button>
+            <Button variant="contained" onClick={() => setSPI('4')}>4</Button>
+            <Button variant="contained" onClick={() => setSPI('5')}>5</Button>
+            <Button variant="contained" onClick={() => setSPI('6')}>6</Button>
+            <Button variant="contained" onClick={() => setSPI('7')}>7</Button>
+            <Button variant="contained" onClick={() => setSPI('DNE')}>Doesn't Say</Button>
+            {/* <form>
               Please Enter the SPI Number.
             <label>
                   <input type = "text" value = "SPI"/>
             </label>
               <Button variant="contained"> Done</Button>
-            </form>
+            </form> */}
           </div>
         )
+        // if (SPI === ('1' || '2')) {
+        //     setResult('r');
+        // } else {
+        //     setResult('w');
+        // }
       }
       else if (materialType === 'paper') {
         content = (
@@ -342,21 +353,11 @@ function QuestionModal(props) {
 
   return (
     <div>
-      <h1>Follow Up Questions: {detectedObject}</h1>
       {content}
-      <Link 
-          to={{
-            pathname: "/final",
-            state: { title: {detectedObject}, result: {result}, info: null}
-          }}
-      >
-        <Button>
-          {detectedObject}
-        </Button>
-      </Link>
     </div>
   )
 }
+
 
 export function FinalResult(props) {
   // if passing through link
