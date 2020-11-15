@@ -158,8 +158,7 @@ export function FetchModal(props) {
   }
 
   let url = `https://data.edmonton.ca/resource/gtej-pcij.json?$where=material_title like '%25${currentObject}%25'`;
-  if (predefined.includes(currentObject) 
-    //|| 'box') // COMMENT IN TO ACCESS QS FLOW
+  if (predefined.includes(currentObject) || 'box') // COMMENT IN TO ACCESS QS FLOW
   {
     // go straight to question/answer flow
     return (<QuestionModal detectedObject={currentObject}/>)
@@ -312,10 +311,17 @@ function QuestionModal(props) {
       } else if (materialType === 'plastic') {
         content = (
           <div>
-            Please Enter the SPI Number. (form)
+            <form>
+              Please Enter the SPI Number.
+            <label>
+                  <input type = "text" value = "SPI"/>
+            </label>
+              <Button variant="contained"> Done</Button>
+            </form>
           </div>
         )
-      } else if (materialType === 'paper') {
+      }
+      else if (materialType === 'paper') {
         content = (
           <div>
             Is there a wax or plastic coating?
@@ -328,6 +334,7 @@ function QuestionModal(props) {
 
     // This if statement is not working rn
     if (result === ('r' || 'w')) {
+      console.log(result);
       <div>
         Your {detectedObject} is {result}.
       </div>
@@ -337,6 +344,16 @@ function QuestionModal(props) {
     <div>
       <h1>Follow Up Questions: {detectedObject}</h1>
       {content}
+      <Link 
+          to={{
+            pathname: "/final",
+            state: { title: {detectedObject}, result: {result}, info: null}
+          }}
+      >
+        <Button>
+          {detectedObject}
+        </Button>
+      </Link>
     </div>
   )
 }
