@@ -18,3 +18,22 @@
     transform: rotate(360deg);
   }
 }
+
+.finalScreen {
+  width: 375px;
+  height: 667px;
+  background-image: url("results.png");
+  padding-top:130px;
+  color: #0076BE;
+}
+
+.finalDesc {
+  margin-top: 90px;
+  color: #48BF91;
+}
+
+.finalButton {
+  margin-top: 160px;
+  height: 50px;
+  opacity: 0;
+}

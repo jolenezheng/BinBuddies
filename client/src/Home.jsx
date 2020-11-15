@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Button, Modal} from '@material-ui/core/';
+import {Button, Modal, Typography} from '@material-ui/core/';
 import {Link} from "react-router-dom";
 import './App.css';
 import history from './history';
@@ -283,21 +283,26 @@ export function FinalResult(props) {
   // </Link>
   let {title, result, info} = props.history.location.state;
 
+  console.log(result.includes("Recyc"));
+
   return (
-    <div>
-    <h1>
-      {title}
-    </h1>
-    We suggest:
-    <p>
-      {result}
-    </p>
-    <p>
-      {info}
-    </p>
-    <Link to="/home">
-      Start Over
-    </Link>
+    <div className="finalScreen">
+    <h3>
+      {result.includes("Recyc") ? "Your item is recyclable!" : "Your item is not recyclable"}
+    </h3>
+    <div className="finalDesc">
+      <h1>
+        {result}
+      </h1>
+      <body>
+        {info}
+      </body>
+    </div>
+    <div className="finalButton">
+      <Link to="/home">
+        Start Over
+      </Link>
+    </div>
     </div>
   )
 }
