@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Button, Modal} from '@material-ui/core/';
+import {Button, Modal, Typography} from '@material-ui/core/';
 import {Link} from "react-router-dom";
 import './App.css';
 import history from './history';
@@ -39,13 +39,10 @@ function Home(props) {
   }
 
   return(
-    <div>
-      <Link to="/">
-        <Button variant="contained">Logout</Button>
-      </Link>
-      Home
-      <Button variant="contained" onClick={handleUploadModal}>Upload pic</Button>
-      <Button variant="contained" onClick={handleManualModal}>Manual</Button>
+    <div className="welcomeScreen">
+      {/* Take a Photo */}
+      <Button className="welcomeUpload" variant="contained" onClick={handleUploadModal}>Upload a Photo</Button>
+      <Button className="welcomeManual" onClick={handleManualModal}>Manual Submission</Button>
       <Modal
         open={uploadModal}
         onClose={handleCloseParent}
@@ -58,7 +55,7 @@ function Home(props) {
         open={manualModal}
         onClose={handleCloseParent}
       >
-        <div className="testModal">
+        <div>
           <ManualModalParent parentCallback={handleCallback}/>
         </div>
       </Modal>
@@ -118,19 +115,18 @@ function ManualModalParent(props) {
     parentCallback(detectedObject);
   }
 
+  // buttons don't submit unless you press submit
   return (
-    <div>
-      What is your item?
+    <div className="manualModal">
       <form>
-        <p><Button variant="contained" onClick={() => {setDetectedObject("bottles")}}>Jugs or Bottles</Button></p>     
-        <p><Button variant="contained" onClick={() => {setDetectedObject("containers")}}>Containers</Button></p>
-        <p><Button variant="contained" onClick={() => {setDetectedObject("textiles")}}>Textiles</Button></p>
-        <p><Button variant="contained" onClick={() => {setDetectedObject("electronics")}}>Electronics</Button></p>
-      <label>
-          Other: 
-            <input type = "text" name="other" />
-      </label>
-        <Button variant="contained" onClick={handleSubmit}>Submit</Button>
+        <p className="manualOne"><Button variant="contained" onClick={() => {setDetectedObject("bottles")}}>Jugs or Bottles</Button></p>     
+        <p className="manualTwo"><Button variant="contained" onClick={() => {setDetectedObject("containers")}}>Containers</Button></p>
+        <p className="manualThree"><Button variant="contained" onClick={() => {setDetectedObject("electronics")}}>Electronics</Button></p>
+        <p className="manualFour"><Button variant="contained" onClick={() => {setDetectedObject("textiles")}}>Textiles</Button></p>
+        <input className="manualEntry" type = "text" name="other" />
+        <div className="manualSubmit">
+          <Button  variant="contained" onClick={handleSubmit}>Submit</Button>
+        </div>
       </form>
     </div>
   )
@@ -139,7 +135,7 @@ function ManualModalParent(props) {
 export function FetchModal(props) {
   let {detectedObject} = props;
 
-  let currentObject = (props.history.location.state || detectedObject || "box"); // result from image api
+  let currentObject = (detectedObject || props.history.location.state || "box"); // result from image api
 
   let [init, setInit] = useState(false);
   let [data, setData] = useState();
@@ -158,9 +154,9 @@ export function FetchModal(props) {
   }
 
   let url = `https://data.edmonton.ca/resource/gtej-pcij.json?$where=material_title like '%25${currentObject}%25'`;
-  if (predefined.includes(currentObject) 
-    //|| 'box') // COMMENT IN TO ACCESS QS FLOW
-  {
+  if (predefined.includes(currentObject)) {
+        //|| 'box') // COMMENT IN TO ACCESS QS FLOW
+
     // go straight to question/answer flow
     return (<QuestionModal detectedObject={currentObject}/>)
   } else {
@@ -183,7 +179,8 @@ export function FetchModal(props) {
   }
 
   return (
-    <div>
+    <div className="resultOptions">
+      <div className="resultOptionsScroll">
       {data && (data.length > 1) 
         && data.map((data, i) => {
           return (
@@ -192,6 +189,7 @@ export function FetchModal(props) {
                     pathname: "/final",
                     state: { title: data["material_title"], result: data["stream_title"], info: data["special_instructions"]}
                   }}
+                  className="resultOptionsButton"
             >
               <Button>
                 {data["material_title"]}
@@ -199,6 +197,7 @@ export function FetchModal(props) {
             </Link>
           )
       })}
+      </div>
     </div>
   )
 }
@@ -353,21 +352,26 @@ export function FinalResult(props) {
   // </Link>
   let {title, result, info} = props.history.location.state;
 
+  console.log(result.includes("Recyc"));
+
   return (
-    <div>
-    <h1>
-      {title}
-    </h1>
-    We suggest:
-    <p>
-      {result}
-    </p>
-    <p>
-      {info}
-    </p>
-    <Link to="/home">
-      Start Over
-    </Link>
+    <div className="finalScreen">
+    <h3>
+      {result.includes("Recyc") ? "Your item is recyclable!" : "Your item is not recyclable"}
+    </h3>
+    <div className="finalDesc">
+      <h1>
+        {result}
+      </h1>
+      <body>
+        {info}
+      </body>
+    </div>
+    <div className="finalButton">
+      <Link to="/home">
+        Start Over
+      </Link>
+    </div>
     </div>
   )
 }
