@@ -53,6 +53,44 @@
   background-image: url("./imgs/manualModal.png");
   margin-top: 0px;
 }
+.manualOne {
+  position: absolute;
+  left: 30px;
+  top: 405px;
+  opacity: 0;
+}
+.manualTwo {
+  position: absolute;
+  left: 30px;
+  top: 470px;
+  opacity: 0;
+}
+.manualThree {
+  position: absolute;
+  top: 410px;
+  left: 200px;
+  opacity: 0;
+}
+.manualFour {
+  position: absolute;
+  top: 480px;
+  left: 200px;
+  opacity: 0;
+}
+.manualEntry{
+  position: absolute;
+  top: 580px;
+  height: 20px;
+  left: 35px;
+  background: transparent;
+  border: none;
+}
+.manualSubmit{
+  position: absolute;
+  top: 580px;
+  left: 250px;
+  opacity: 0;
+}
 
 /* LOGIN */
 .loginButton{
@@ -97,7 +135,19 @@
   background-image: url("./imgs/welcomeScreen.png");
   margin-top: 0px;
 }
+.welcomeManual {
+  position: absolute;
+  top: 580px;
+  width: 200px;
+}
+.welcomeUpload {
+  position: absolute;
+  top: 580px;
+  width: 400px;
+  opacity: 0;
+}
 
+/* CONFIRMING SCREEN */
 .yesContainer{
   margin-top: 500px;
   margin-left: 34px;
