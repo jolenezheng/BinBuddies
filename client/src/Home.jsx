@@ -39,13 +39,10 @@ function Home(props) {
   }
 
   return(
-    <div>
-      <Link to="/">
-        <Button variant="contained">Logout</Button>
-      </Link>
-      Home
-      <Button variant="contained" onClick={handleUploadModal}>Upload pic</Button>
-      <Button variant="contained" onClick={handleManualModal}>Manual</Button>
+    <div className="welcomeScreen">
+      {/* Take a Photo */}
+      <Button className="welcomeUpload" variant="contained" onClick={handleUploadModal}>Upload a Photo</Button>
+      <Button className="welcomeManual" onClick={handleManualModal}>Manual Submission</Button>
       <Modal
         open={uploadModal}
         onClose={handleCloseParent}

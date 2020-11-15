@@ -19,6 +19,7 @@
   }
 }
 
+/* RESULTS PAGE */
 .finalScreen {
   width: 375px;
   height: 667px;
@@ -37,7 +38,7 @@
   height: 50px;
   opacity: 0;
 }
-
+/* MULTIPLE RESULTS FROM DATABASE API */
 .resultOptions {
   width: 375px;
   height: 667px;
@@ -53,7 +54,7 @@
   background: white;
   padding: 5px;
 }
-
+/* MANUAL ENTRY */
 .manualModal {
   width: 375px;
   height: 667px;
@@ -98,3 +99,22 @@
   left: 250px;
   opacity: 0;
 }
+/* WELCOME SCREEN */
+.welcomeScreen {
+  width: 375px;
+  height: 667px;
+  background-image: url("welcomeScreen.png");
+  margin-top: 0px;
+}
+.welcomeManual {
+  position: absolute;
+  top: 580px;
+  width: 200px;
+}
+.welcomeUpload {
+  position: absolute;
+  top: 580px;
+  width: 400px;
+  opacity: 0;
+}
+/* UPLOAD PHOTO SCREEN */
