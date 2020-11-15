@@ -271,7 +271,16 @@ function QuestionModal(props) {
           content = (
             <div className = 'litersModal'>
               <Button className="yesButtonQ" onClick={() => setNextStep('material')}>Yes</Button>
-              <Button className="noButtonQ" onClick={() => setResult('w')}>No</Button>
+              <Link 
+                to={{
+                  pathname: "/final",
+                  state: { title: detectedObject, result: "Waste Bin", info: 'Please dispose of you item responsibly!'}
+                }}
+              >
+                <Button className="noButtonQ" onClick={() => setResult('Waste')}>No</Button>
+              </Link>
+
+
             </div>
           )
         }
@@ -294,9 +303,23 @@ function QuestionModal(props) {
           <div className="spacer1">
               <Button className="glassButton" className="materialButton" variant="contained" onClick={() => setMaterialType('glass')}>Glass</Button>
               <Button className="plasticButton" className="materialButton" variant="contained" onClick={() => setMaterialType('plastic')}>Plastic</Button>
-              <Button className="metalButton" className="materialButton" variant="contained" onClick={() => setResult('r')}>Metal</Button>
               <Button className="paperButton" className="materialButton" variant="contained" onClick={() => setMaterialType('paper')}>Paper</Button>
-              <Button className="styrofoamButton" className="materialButton" variant="contained" onClick={() => setResult('w')}>Styrofoam</Button>
+              <Link 
+                to={{
+                  pathname: "/final",
+                  state: { title: detectedObject, result: "Waste Bin", info: 'Please dispose of you item responsibly!'}
+                }}
+              >
+                <Button className="styrofoamButton" className="materialButton" variant="contained" onClick={() => setResult('Waste')}>Styrofoam</Button>
+              </Link>
+              <Link 
+                to={{
+                  pathname: "/final",
+                  state: { title: detectedObject, result: "Recycling Bin", info: 'Please dispose of you item responsibly!'}
+                }}
+              >
+                <Button className="metalButton" className="materialButton" variant="contained" onClick={() => setResult('Recycling')}>Metal</Button>
+              </Link>
           </div>
         </div>
       ) 
@@ -304,8 +327,22 @@ function QuestionModal(props) {
         content = (
           <div className="glass">
             <div className = "spacer">
-              <Button className="yesContainer" variant="contained" onClick={() => setResult('w')}>Yes</Button>
-              <Button className="noContainer" variant="contained" onClick={() => setResult('r')}>No</Button>
+            <Link 
+              to={{
+                pathname: "/final",
+                state: { title: detectedObject, result: "Waste Bin", info: 'Please dispose of you item responsibly!'}
+              }}
+            >
+             <Button className="yesContainer" variant="contained" onClick={() => setResult('Waste')}>Yes</Button>
+            </Link>
+            <Link 
+              to={{
+                pathname: "/final",
+                state: { title: detectedObject, result: "Recycling Bin", info: 'Please dispose of you item responsibly!'}
+              }}
+            >
+              <Button className="noContainer" variant="contained" onClick={() => setResult('Recycling')}>No</Button>
+            </Link>
             </div>
           </div>
         )
@@ -320,6 +357,13 @@ function QuestionModal(props) {
                 }}
               >  
                 <Button className="glassButton" className="materialButton" variant="contained" onClick={() => setResult('r')}>1</Button>
+            </Link>
+            <Link 
+                to={{
+                  pathname: "/final",
+                  state: { title: detectedObject, result: "Recycling Bin", info: 'Please dispose of you item responsibly!'}
+                }}
+              >  
                 <Button className="plasticButton" className="materialButton" variant="contained" onClick={() => setResult('r')}>2</Button>
             </Link>
             <Link 
@@ -329,6 +373,13 @@ function QuestionModal(props) {
                 }}
               >  
               <Button className="metalButton" className="materialButton" variant="contained" >3 to 7</Button>
+            </Link>
+            <Link 
+                to={{
+                  pathname: "/final",
+                  state: { title: detectedObject, result: "Waste Bin", info: 'Please dispose of you item responsibly!'}
+                }}
+              >  
               <Button className="paperButton" className="materialButton" variant="contained" >Does not show</Button>
             </Link>
           </div>
@@ -337,24 +388,22 @@ function QuestionModal(props) {
       } else if (materialType === 'paper') {
         content = (
           <div className = "wax">
-            <div className = "spacer">
-            <Link 
-              to={{
-                pathname: "/final",
-                state: { title: detectedObject, result: "Recycling Bin", info: 'Please dispose of you item responsibly!'}
-              }}
-            >
-              <Button className="noContainer" variant="contained" onClick={() => setResult('Recycling')}>No</Button>
-            </Link>
             <Link 
               to={{
                 pathname: "/final",
                 state: { title: detectedObject, result: "Waste Bin", info: 'Please dispose of you item responsibly!'}
               }}
             >
-              <Button className="yesContainer" variant="contained" onClick={() => setResult('Waste')}>Yes</Button>
+              <Button className="yesButtonQ" variant="contained" onClick={() => setResult('Waste')}>Yes</Button>
             </Link>
-            </div>
+            <Link 
+              to={{
+                pathname: "/final",
+                state: { title: detectedObject, result: "Recycling Bin", info: 'Please dispose of you item responsibly!'}
+              }}
+            >
+              <Button className="noButtonQ" variant="contained" onClick={() => setResult('Recycling')}>No</Button>
+            </Link>
           </div>
         )
       }
