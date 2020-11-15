@@ -6,13 +6,10 @@ import history from './history';
 import defaultImage from './box.png';
 
 function Home(props) {
-  let {result} = props.history.location.state; // result from image api
-
   //closed by default
   const [uploadModal, setUploadModal] = useState(false);
   const [manualModal, setManualModal] = useState(false);
-  const [questionModal, setQuestionModal] = useState(false);
-  const [detectedObject, setDetectedObject] = useState(result || null);
+  const [detectedObject, setDetectedObject] = useState(null);
 
   const handleUploadModal = () => {
     setUploadModal(true);
@@ -27,22 +24,17 @@ function Home(props) {
     setUploadModal(false);
   }
 
-  const handleCloseChild = () => {
-    setQuestionModal(false);
-  }
-
   let handleCallback = (data) => {
     //set object here too - this could be used for the image and manual modals
     //data is what the child sent - now u can use that in the q&a modal
     setDetectedObject(data);
     // open the q&a modal, close parents
     handleCloseParent();
-    setQuestionModal(true);
   }
   
   if (detectedObject) {
     return (
-      <FetchModal detectedObject={detectedObject} parentCallback={handleCloseChild}/>
+      <FetchModal detectedObject={detectedObject}/>
     )
   }
 
@@ -75,14 +67,14 @@ function Home(props) {
 }
 
 function ImageModalParent(props) {
-  let {parentCallback} = props;
-  const [detectedObject, setDetectedObject] = useState();
+  // let {parentCallback} = props;
+  // const [detectedObject, setDetectedObject] = useState();
   let [selectedImage, setSelectedImage] = useState();
   
-  let handleSubmit = () => {
-    //this happens on success - send the detectedObject to the parent
-    parentCallback(detectedObject);
-  }
+  // let handleSubmit = () => {
+  //   //this happens on success - send the detectedObject to the parent
+  //   parentCallback(detectedObject);
+  // }
 
   let handleUpload = () => {
       //    {/* image uploading would be here - select the image here somehow */}
@@ -90,15 +82,15 @@ function ImageModalParent(props) {
     setSelectedImage(defaultImage);
   }
 
-  if (detectedObject) {
-    return (
-      <div>
-        Is {detectedObject} the item you submitted?
-        <Button variant="contained" onClick={handleSubmit}>Yes</Button>
-        <Button variant="contained" onClick={() => setDetectedObject(null)}>No</Button>
-      </div>
-    )
-  }
+  // if (detectedObject) {
+  //   return (
+  //     <div>
+  //       Is {detectedObject} the item you submitted?
+  //       <Button variant="contained" onClick={handleSubmit}>Yes</Button>
+  //       <Button variant="contained" onClick={() => setDetectedObject(null)}>No</Button>
+  //     </div>
+  //   )
+  // }
   // default - no object detected yet
   return (
     <div>
@@ -144,10 +136,12 @@ function ManualModalParent(props) {
   )
 }
 
-function FetchModal(props) {
-  let {detectedObject, parentCallback} = props;
+export function FetchModal(props) {
+  let {detectedObject} = props;
+
+  let currentObject = (props.history.location.state || detectedObject || "box"); // result from image api
+
   let [init, setInit] = useState(false);
-  let [isPredefined, setIsPredefined] = useState(false);
   let [data, setData] = useState();
   let predefined = ["containers", "jugs", "bottles", "electronics", "propane tanks"];
 
@@ -163,10 +157,10 @@ function FetchModal(props) {
     .catch((e) => console.log(e));
   }
 
-  let url = `https://data.edmonton.ca/resource/gtej-pcij.json?$where=material_title like '%25${detectedObject}%25'`;
-  if (predefined.includes(detectedObject)) {
+  let url = `https://data.edmonton.ca/resource/gtej-pcij.json?$where=material_title like '%25${currentObject}%25'`;
+  if (predefined.includes(currentObject)) {
     // go straight to question/answer flow
-    return (<QuestionModal detectedObject={detectedObject} parentCallback={parentCallback}/>)
+    return (<QuestionModal detectedObject={currentObject}/>)
   } else {
     if (!init) {
       fetchResults(url);
@@ -176,6 +170,14 @@ function FetchModal(props) {
   if (data && data.length === 1) {
     // go to next... i dont think this works
     history.push('/final');
+  }
+
+  if (!init) {
+    return (
+      <div>
+        Loading...
+      </div>
+    )
   }
 
   return (

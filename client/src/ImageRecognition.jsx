@@ -24,8 +24,7 @@ function ImageRecognition(props) {
         Your photo has been recognized. Your item: {result}
         <Link 
             to={{
-                pathname: "/home",
-                state: { result: result}
+                pathname: "/fetching",
               }}
         >
           <Button>

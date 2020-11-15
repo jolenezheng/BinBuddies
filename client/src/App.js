@@ -5,7 +5,7 @@ import history from './history';
 import './App.css';
 // import { createBrowserHistory as history } from 'history';
 import Login from './Login';
-import Home, {FinalResult} from './Home';
+import Home, {FinalResult, FetchModal} from './Home';
 import ImageRecognition from './ImageRecognition'
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
               <Route path="/home" component={Home} />
               <Route path="/final" component={FinalResult} />
               <Route path="/testAPI" component={ImageRecognition} />
+              <Route path="/fetching" component={FetchModal} />
               </Switch>
         </div>
     </Router>
