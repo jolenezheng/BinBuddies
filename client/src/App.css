@@ -14,9 +14,9 @@
   background-image: url('./imgs/starter.png');
   width: 375px;
   height: 667px;
-  background-image: url("./imgs/results.png");
+  /* background-image: url("./imgs/results.png");
   padding-top:130px;
-  color: #0076BE;
+  color: #0076BE; */
 }
 
 .finalDesc {
