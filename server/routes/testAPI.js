@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
         "obj": "container"
     }
     jsonObj.obj = quickstart();
-    res.send('API is working properly');
+    // res.send('API is working properly');
     res.send(
         jsonObj
     )
@@ -19,14 +19,14 @@ async function quickstart() {
 
     // Creates a client
     const client = new vision.ImageAnnotatorClient();
-    const fileName = './../client/public/imgs/photo.jpg';
+    const fileName = './../client/public/photo.jpeg';
 
     // Performs label detection on the image file
     const [result] = await client.labelDetection(fileName);
     const labels = result.labelAnnotations;
     console.log('Labels:');
     labels.forEach(label => console.log(label.description));
-    return labels[0];
+    return labels[0].description;
 }
 
 module.exports = router;

@@ -3,18 +3,26 @@ import {Button} from '@material-ui/core/';
 import {Link} from "react-router-dom";
 
 function ImageRecognition(props) {
-  let {image} = props.history.location.state; // image can be accessed here
-  let [selectedImage, setSelectedImage] = useState(image);
+  // let {image} = props.history.location.state; // image can be accessed here
+  let [selectedImage, setSelectedImage] = useState();
   let [result, setResult] = useState(); // save result here after fetch
   let [init, setInit] = useState(false);
 
   let fetchResult = () => {
     //fetch google result here
-    setResult("box");
-    setInit(true);
+    
+
+    callBackendAPI()
+      .then(res => {
+        console.log("got: " + res);
+        this.setState({ data: res.data })
+      })
+      .catch(err => console.log(err));
+    
+    // console.log("GOT: " + )
   }
   if (!init) {
-    // fetchResult();
+    fetchResult();
     // fetch(URL, {
     //   method: 'GET',
     // })
@@ -53,6 +61,15 @@ function ImageRecognition(props) {
       Loading...
     </div>
   )
+}
+
+async function callBackendAPI() {
+  const response = await fetch('/testAPI');
+  const body = await response.json();
+  if(response.status !== 200) {
+    throw Error(body.message)
+  }
+  return body;
 }
 
 export default ImageRecognition;
