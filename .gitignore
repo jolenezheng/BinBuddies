@@ -4,9 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
-*.json
+my-key.json
 api/node_modules
 client/node_modules
+server/node_modules
 
 # testing
 /coverage
