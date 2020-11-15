@@ -1,15 +1,17 @@
 var express = require('express');
+const { response } = require('../app');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {   
-    let jsonObj = {
-        "obj": "container"
-    }
-    jsonObj.obj = quickstart();
-    // res.send('API is working properly');
-    res.send(
-        jsonObj
-    )
+    quickstart().then(response => {
+        let jsonObj = {
+            'obj': 'container',
+        }
+        jsonObj.obj = response;
+        res.send(
+            jsonObj
+        )
+    })
 });
 
 async function quickstart() {
@@ -19,7 +21,7 @@ async function quickstart() {
 
     // Creates a client
     const client = new vision.ImageAnnotatorClient();
-    const fileName = './../client/public/photo.jpeg';
+    const fileName = './../client/src/imgs/photo.jpg';
 
     // Performs label detection on the image file
     const [result] = await client.labelDetection(fileName);

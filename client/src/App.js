@@ -16,7 +16,7 @@ function App() {
               <Route exact path="/" component={Login} />
               <Route path="/home" component={Home} />
               <Route path="/final" component={FinalResult} />
-              <Route path="/testAPI" component={ImageRecognition} />
+              <Route path="/photoUpload" component={ImageRecognition} />
               <Route path="/fetching" component={FetchModal} />
               </Switch>
         </div>

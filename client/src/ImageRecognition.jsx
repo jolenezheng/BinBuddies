@@ -9,67 +9,52 @@ function ImageRecognition(props) {
   let [init, setInit] = useState(false);
 
   let fetchResult = () => {
-    //fetch google result here
-    
-
-    callBackendAPI()
-      .then(res => {
-        console.log("got: " + res);
-        this.setState({ data: res.data })
-      })
-      .catch(err => console.log(err));
-    
-    // console.log("GOT: " + )
+    fetch('http://localhost:9000/photo', {
+      method: 'GET',
+    })
+    .then(res => res.json())
+    .then((json) => {
+      console.log("Setting JSON: " + JSON.stringify(json, null, 2));
+      console.log("OBJECT: " + json['obj']);
+      setResult(json['obj']);
+      setInit(true);
+    })
+    .catch((e) => console.log(e));
   }
+
   if (!init) {
     fetchResult();
-    // fetch(URL, {
-    //   method: 'GET',
-    // })
-    // .then(res => res.json())
-    // .then((json) => {
-    //   setResult(json);
-    //   setInit(true);
-    // })
-    // .catch((e) => console.log(e));
+  } else {
+    console.log("INITIALIZED");
+    if (result) {
+      return (
+        <div className="recognizedScreen">
+          {/* Your photo has been recognized. Your item: {result} */}
+          <div className="resultingItem">
+            {result}
+          </div>
+          <Link className="proceedButton"
+              to={{
+                  pathname: "/fetching",
+                }}
+          >
+          </Link>
+          <Link className="tryAgainButton"
+              to={{ pathname: "/home" }}
+          >
+
+          </Link>
+        </div>
+      )
+    } else {
+      console.log("NO RESULT")
+    }
   }
-
-
-  if (result) {
-    return (
-      <div>
-        Your photo has been recognized. Your item: {result}
-        <Link 
-            to={{
-                pathname: "/fetching",
-              }}
-        >
-          <Button>
-            Yes, Proceed
-          </Button>
-        </Link>
-        
-        <Button>
-          No, let's try again
-        </Button>
-      </div>
-    )
-  }
-
   return(
-    <div>
+    <div className="loadingScreen">
       Loading...
     </div>
   )
-}
-
-async function callBackendAPI() {
-  const response = await fetch('/testAPI');
-  const body = await response.json();
-  if(response.status !== 200) {
-    throw Error(body.message)
-  }
-  return body;
 }
 
 export default ImageRecognition;

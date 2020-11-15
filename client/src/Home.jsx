@@ -3,7 +3,8 @@ import {Button, Modal, Typography} from '@material-ui/core/';
 import {Link} from "react-router-dom";
 import './App.css';
 import history from './history';
-import defaultImage from './box.png';
+import defaultImage from './imgs/photo.jpg';
+import ImageUploader from 'react-images-upload';
 
 function Home(props) {
   //closed by default
@@ -82,13 +83,24 @@ function ImageModalParent(props) {
           <img src={selectedImage}/>
         </div>
       ) : (
-        <Button className="uploadModalSelect" variant="contained" onClick={handleUpload}>
-          Select a picture
-        </Button>
+        
+        <div className="pic-upload">
+            {/* <Button className="uploadModalSelect" variant="contained" onClick={handleUpload}>
+              Select a picture
+            </Button> */}
+            <ImageUploader className="uploadModalSelect"
+              withIcon={true}
+              buttonText='Select Image'
+              onChange={handleUpload}
+              imgExtension={['.jpg', '.gif', '.png', '.gif']}
+              maxFileSize={5242880}
+            />
+        </div>
+        // TODO: make uploaded picture ../img/photo.jpg
       )}
       <Link 
         to={{
-            pathname: "/testAPI",
+            pathname: "/photoUpload",
             state: { image: defaultImage }
           }}
         >
