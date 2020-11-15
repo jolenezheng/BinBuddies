@@ -53,3 +53,48 @@
   background: white;
   padding: 5px;
 }
+
+.manualModal {
+  width: 375px;
+  height: 667px;
+  background-image: url("manualModal.png");
+  margin-top: 0px;
+}
+.manualOne {
+  position: absolute;
+  left: 30px;
+  top: 405px;
+  opacity: 0;
+}
+.manualTwo {
+  position: absolute;
+  left: 30px;
+  top: 470px;
+  opacity: 0;
+}
+.manualThree {
+  position: absolute;
+  top: 410px;
+  left: 200px;
+  opacity: 0;
+}
+.manualFour {
+  position: absolute;
+  top: 480px;
+  left: 200px;
+  opacity: 0;
+}
+.manualEntry{
+  position: absolute;
+  top: 580px;
+  height: 20px;
+  left: 35px;
+  background: transparent;
+  border: none;
+}
+.manualSubmit{
+  position: absolute;
+  top: 580px;
+  left: 250px;
+  opacity: 0;
+}

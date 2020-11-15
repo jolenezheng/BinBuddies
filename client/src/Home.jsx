@@ -58,7 +58,7 @@ function Home(props) {
         open={manualModal}
         onClose={handleCloseParent}
       >
-        <div className="testModal">
+        <div>
           <ManualModalParent parentCallback={handleCallback}/>
         </div>
       </Modal>
@@ -118,19 +118,18 @@ function ManualModalParent(props) {
     parentCallback(detectedObject);
   }
 
+  // buttons don't submit unless you press submit
   return (
-    <div>
-      What is your item?
+    <div className="manualModal">
       <form>
-        <p><Button variant="contained" onClick={() => {setDetectedObject("bottles")}}>Jugs or Bottles</Button></p>     
-        <p><Button variant="contained" onClick={() => {setDetectedObject("containers")}}>Containers</Button></p>
-        <p><Button variant="contained" onClick={() => {setDetectedObject("textiles")}}>Textiles</Button></p>
-        <p><Button variant="contained" onClick={() => {setDetectedObject("electronics")}}>Electronics</Button></p>
-      <label>
-          Other: 
-            <input type = "text" name="other" />
-      </label>
-        <Button variant="contained" onClick={handleSubmit}>Submit</Button>
+        <p className="manualOne"><Button variant="contained" onClick={() => {setDetectedObject("bottles")}}>Jugs or Bottles</Button></p>     
+        <p className="manualTwo"><Button variant="contained" onClick={() => {setDetectedObject("containers")}}>Containers</Button></p>
+        <p className="manualThree"><Button variant="contained" onClick={() => {setDetectedObject("electronics")}}>Electronics</Button></p>
+        <p className="manualFour"><Button variant="contained" onClick={() => {setDetectedObject("textiles")}}>Textiles</Button></p>
+        <input className="manualEntry" type = "text" name="other" />
+        <div className="manualSubmit">
+          <Button  variant="contained" onClick={handleSubmit}>Submit</Button>
+        </div>
       </form>
     </div>
   )
@@ -139,7 +138,7 @@ function ManualModalParent(props) {
 export function FetchModal(props) {
   let {detectedObject} = props;
 
-  let currentObject = (detectedObject || "box"); // result from image api
+  let currentObject = (detectedObject || props.history.location.state || "box"); // result from image api
 
   let [init, setInit] = useState(false);
   let [data, setData] = useState();
@@ -158,9 +157,9 @@ export function FetchModal(props) {
   }
 
   let url = `https://data.edmonton.ca/resource/gtej-pcij.json?$where=material_title like '%25${currentObject}%25'`;
-  if (predefined.includes(currentObject) 
-    //|| 'box') // COMMENT IN TO ACCESS QS FLOW
-  {
+  if (predefined.includes(currentObject)) {
+        //|| 'box') // COMMENT IN TO ACCESS QS FLOW
+
     // go straight to question/answer flow
     return (<QuestionModal detectedObject={currentObject}/>)
   } else {
