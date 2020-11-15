@@ -20,6 +20,7 @@ function ImageRecognition(props) {
 
   if (result) {
     return (
+      
       <div>
         Your photo has been recognized. Your item: {result}
         <Link 
