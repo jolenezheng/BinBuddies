@@ -304,8 +304,23 @@ function QuestionModal(props) {
         content = (
           <div className="glass">
             <div className = "spacer">
+            <Link 
+                to={{
+                  pathname: "/final",
+                  state: { title: detectedObject, result: "Waste Bin", info: 'Please dispose of you item responsibly!'}
+                }}
+              >  
               <Button className="yesContainer" variant="contained" onClick={() => setResult('w')}>Yes</Button>
-              <Button className="noContainer" variant="contained" onClick={() => setResult('r')}>No</Button>
+            </Link>
+            
+            <Link 
+                to={{
+                  pathname: "/final",
+                  state: { title: detectedObject, result: "Recycling Bin", info: 'Please dispose of you item responsibly!'}
+                }}
+              >  
+               <Button className="noContainer" variant="contained" onClick={() => setResult('r')}>No</Button>
+            </Link>
             </div>
           </div>
         )
