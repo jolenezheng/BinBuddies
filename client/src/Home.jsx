@@ -311,7 +311,28 @@ function QuestionModal(props) {
         )
       } else if (materialType === 'plastic') {
         content = (
-          <Button variant="contained" onClick={() => setResult('w')}>1</Button>
+          <div className="spiModal">
+          <div className="spacer1">
+            <Link 
+                to={{
+                  pathname: "/final",
+                  state: { title: detectedObject, result: "Recycling Bin", info: 'Please dispose of you item responsibly!'}
+                }}
+              >  
+                <Button className="glassButton" className="materialButton" variant="contained" onClick={() => setResult('r')}>1</Button>
+                <Button className="plasticButton" className="materialButton" variant="contained" onClick={() => setResult('r')}>2</Button>
+            </Link>
+            <Link 
+                to={{
+                  pathname: "/final",
+                  state: { title: detectedObject, result: "Waste Bin", info: 'Please dispose of you item responsibly!'}
+                }}
+              >  
+              <Button className="metalButton" className="materialButton" variant="contained" >3 to 7</Button>
+              <Button className="paperButton" className="materialButton" variant="contained" >Does not show</Button>
+            </Link>
+          </div>
+        </div>
         )
       } else if (materialType === 'paper') {
         content = (
@@ -320,7 +341,7 @@ function QuestionModal(props) {
             <Link 
               to={{
                 pathname: "/final",
-                state: { title: detectedObject, result: "Blue Bin", info: 'Please dispose of you item responsibly!'}
+                state: { title: detectedObject, result: "Recycling Bin", info: 'Please dispose of you item responsibly!'}
               }}
             >
               <Button className="noContainer" variant="contained" onClick={() => setResult('Recycling')}>No</Button>
