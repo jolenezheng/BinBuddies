@@ -136,15 +136,10 @@ function ManualModalParent(props) {
 // the styling for questions can go here for now?
 function QuestionModal(props) {
   let {detectedObject, parentCallback} = props;
-  let [materialModal, setMaterialModal] = useState(false);
   let [result, setResult] = useState(null); // "r" or "w"
   let [nextStep, setNextStep] = useState(); // 'follow up', 'next', or 'material'
-
-  // button to go to next step
-  let finishButton = (
-    <Button variant="contained" onClick={() => setMaterialModal(true)}>Finish</Button>
-  )
-
+  let [materialType, setMaterialType] = useState();
+  
   // assuming these are the only options we will handle:
   // container, jug, bottle, electronic, propane tanks, textiles
   // other will get handled differently
@@ -162,7 +157,7 @@ function QuestionModal(props) {
   //default
   let content = (<div>Next results</div>)
 
-  while(result === null) {
+
     // Qs for Item types (Step 1)
     if (detectedObject === 'box' || detectedObject === 'containers') {
       content = (
@@ -222,14 +217,14 @@ function QuestionModal(props) {
       content = (
         <div>
           What material is your item made of?
-          <Button variant="contained" onClick={() => setNextStep('glass')}>Glass</Button>
-          <Button variant="contained" onClick={() => setNextStep('plastic')}>Plastic</Button>
+          <Button variant="contained" onClick={() => setMaterialType('glass')}>Glass</Button>
+          <Button variant="contained" onClick={() => setMaterialType('plastic')}>Plastic</Button>
           <Button variant="contained" onClick={() => setResult('r')}>Metal</Button>
-          <Button variant="contained" onClick={() => setNextStep('paper')}>Paper</Button>
+          <Button variant="contained" onClick={() => setMaterialType('paper')}>Paper</Button>
           <Button variant="contained" onClick={() => setResult('w')}>Styrofoam</Button>
         </div>
       ) 
-      if (nextStep === 'glass') {
+      if (materialType === 'glass') {
         content = (
           <div>
             Is it broken?
@@ -237,13 +232,13 @@ function QuestionModal(props) {
             <Button variant="contained" onClick={() => setResult('r')}>No</Button>
           </div>
         )
-      } else if (nextStep === 'plastic') {
+      } else if (materialType === 'plastic') {
         content = (
           <div>
             Please Enter the SPI Number. (form)
           </div>
         )
-      } else if (nextStep === 'paper') {
+      } else if (materialType === 'paper') {
         content = (
           <div>
             Is there a wax or plastic coating?
@@ -253,33 +248,20 @@ function QuestionModal(props) {
         )
       }
     }
-  }
+
+    // This if statement is not working
+    if (result === ('r' || 'w')) {
+      <div>
+        Your {detectedObject} is {result}.
+      </div>
+    }
 
   return (
     <div >
+      <h1>Follow Up Questions: {detectedObject}</h1>
       {content}
-      <Modal 
-        open={materialModal}
-        onClose={parentCallback}
-      >
-        <div className="testModal">
-          <MaterialModal detectedObject={detectedObject}/>
-        </div>
-      </Modal>
     </div>
   )
 }
-
-// The API calls can go here for now? We can rearrange stuff later
-function MaterialModal(props) {
-  let {detectedObject} = props;
-
-  return (
-    <div>
-      something
-    </div>
-  )
-}
-
 
 export default Home;
