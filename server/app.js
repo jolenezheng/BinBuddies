@@ -8,7 +8,7 @@ var cors = require('cors');
 
 var indexRouter = require('./routes/index'); // require('./../client/src/index');
 var usersRouter = require('./routes/users');
-var testAPIRouter = require("./routes/testAPI");
+var photoRouter = require("./routes/photo");
 
 var app = express();
 
@@ -31,9 +31,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../client/build")));
 app.use(express.static("public"));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use("/testAPI", testAPIRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+app.use("/photo", photoRouter);
 
 // -------
 
@@ -44,9 +44,9 @@ app.use("/testAPI", testAPIRouter);
 //   res.send(ReactDOMServer.renderToString(<Component msg={msg} />));
 // }
 
-app.use('/', (req, res, next) => {
-  res.sendFile(path.join(__dirname, "..", "client/build", "index.html"));
-});
+// app.use('/', (req, res, next) => {
+//   res.sendFile(path.join(__dirname, "..", "client/build", "index.html"));
+// });
 
 // -----
 

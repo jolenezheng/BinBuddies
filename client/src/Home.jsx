@@ -3,7 +3,8 @@ import {Button, Modal, Typography} from '@material-ui/core/';
 import {Link} from "react-router-dom";
 import './App.css';
 import history from './history';
-import defaultImage from './box.png';
+import defaultImage from './imgs/photo.jpg';
+import ImageUploader from 'react-images-upload';
 
 function Home(props) {
   //closed by default
@@ -47,7 +48,7 @@ function Home(props) {
         open={uploadModal}
         onClose={handleCloseParent}
       >
-        <div className="testModal">
+        <div>
           <ImageModalParent parentCallback={handleCallback} />
         </div>
       </Modal>
@@ -64,14 +65,8 @@ function Home(props) {
 }
 
 function ImageModalParent(props) {
-  // let {parentCallback} = props;
-  // const [detectedObject, setDetectedObject] = useState();
+  // modal for UPLOADING image
   let [selectedImage, setSelectedImage] = useState();
-  
-  // let handleSubmit = () => {
-  //   //this happens on success - send the detectedObject to the parent
-  //   parentCallback(detectedObject);
-  // }
 
   let handleUpload = () => {
       //    {/* image uploading would be here - select the image here somehow */}
@@ -79,28 +74,37 @@ function ImageModalParent(props) {
     setSelectedImage(defaultImage);
   }
 
-  // if (detectedObject) {
-  //   return (
-  //     <div>
-  //       Is {detectedObject} the item you submitted?
-  //       <Button variant="contained" onClick={handleSubmit}>Yes</Button>
-  //       <Button variant="contained" onClick={() => setDetectedObject(null)}>No</Button>
-  //     </div>
-  //   )
-  // }
-  // default - no object detected yet
   return (
-    <div>
-      <Button variant="contained" onClick={handleUpload}>
-        Select a picture
-      </Button>
+    <div className="uploadModal">
+      
+      {/* preview image */}
+      {selectedImage ? (
+        <div className="uploadModalImage">
+          <img src={selectedImage}/>
+        </div>
+      ) : (
+        
+        <div className="pic-upload">
+            {/* <Button className="uploadModalSelect" variant="contained" onClick={handleUpload}>
+              Select a picture
+            </Button> */}
+            <ImageUploader className="uploadModalSelect"
+              withIcon={true}
+              buttonText='Select Image'
+              onChange={handleUpload}
+              imgExtension={['.jpg', '.gif', '.png', '.gif']}
+              maxFileSize={5242880}
+            />
+        </div>
+        // TODO: make uploaded picture ../img/photo.jpg
+      )}
       <Link 
         to={{
-            pathname: "/testAPI",
+            pathname: "/photoUpload",
             state: { image: defaultImage }
           }}
         >
-          <Button variant="contained">Upload</Button>
+          <Button className="uploadModalUpload" variant="contained">Upload</Button>
       </Link>
     </div>
   )
