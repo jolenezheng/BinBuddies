@@ -3,8 +3,13 @@ import {Button, Modal, Typography} from '@material-ui/core/';
 import {Link} from "react-router-dom";
 import './App.css';
 import history from './history';
+<<<<<<< Updated upstream
 import defaultImage from './imgs/photo.jpg';
 import ImageUploader from 'react-images-upload';
+=======
+import defaultImage from './box.png';
+import PlasticForm from './PlasticForm';
+>>>>>>> Stashed changes
 
 function Home(props) {
   //closed by default
@@ -295,35 +300,42 @@ function QuestionModal(props) {
     //Material Qs
     if (nextStep === 'material') {
       content = (
-        <div>
-          What material is your item made of?
-          <Button variant="contained" onClick={() => setMaterialType('glass')}>Glass</Button>
-          <Button variant="contained" onClick={() => setMaterialType('plastic')}>Plastic</Button>
-          <Button variant="contained" onClick={() => setResult('r')}>Metal</Button>
-          <Button variant="contained" onClick={() => setMaterialType('paper')}>Paper</Button>
-          <Button variant="contained" onClick={() => setResult('w')}>Styrofoam</Button>
+        <div className="materialPage">
+          <div className="spacer1">
+              <Button className="glassButton" className="materialButton" variant="contained" onClick={() => setMaterialType('glass')}>Glass</Button>
+              <Button className="plasticButton" className="materialButton" variant="contained" onClick={() => setMaterialType('plastic')}>Plastic</Button>
+              <Button className="metalButton" className="materialButton" variant="contained" onClick={() => setResult('r')}>Metal</Button>
+              <Button className="paperButton" className="materialButton" variant="contained" onClick={() => setMaterialType('paper')}>Paper</Button>
+              <Button className="styrofoamButton" className="materialButton" variant="contained" onClick={() => setResult('w')}>Styrofoam</Button>
+          </div>
         </div>
       ) 
       if (materialType === 'glass') {
         content = (
-          <div>
-            Is it broken?
-            <Button variant="contained" onClick={() => setResult('w')}>Yes</Button>
-            <Button variant="contained" onClick={() => setResult('r')}>No</Button>
+          <div className="glass">
+            <div className = "spacer">
+              <Button className="yesContainer" variant="contained" onClick={() => setResult('w')}>Yes</Button>
+              <Button className="noContainer" variant="contained" onClick={() => setResult('r')}>No</Button>
+            </div>
           </div>
         )
       } else if (materialType === 'plastic') {
         content = (
+<<<<<<< Updated upstream
           <div>
             Please Enter the SPI Number. (form)
           </div>
+=======
+          <Button variant="contained" onClick={() => setResult('w')}>1</Button>
+>>>>>>> Stashed changes
         )
       } else if (materialType === 'paper') {
         content = (
-          <div>
-            Is there a wax or plastic coating?
-            <Button variant="contained" onClick={() => setResult('w')}>Yes</Button>
-            <Button variant="contained" onClick={() => setResult('r')}>No</Button>
+          <div className = "wax">
+            <div className = "spacer">
+              <Button className="yesContainer" variant="contained" onClick={() => setResult('w')}>Yes</Button>
+              <Button className="noContainer" variant="contained" onClick={() => setResult('r')}>No</Button>
+            </div>
           </div>
         )
       }
@@ -333,13 +345,32 @@ function QuestionModal(props) {
     if (result === ('r' || 'w')) {
       <div>
         Your {detectedObject} is {result}.
+<<<<<<< Updated upstream
+=======
+        <Link 
+          to={{
+            pathname: "/final",
+            state: { title: {detectedObject}, result: {result}, info: null}
+          }}
+      >
+        <Button>
+          {detectedObject}
+        </Button>
+      </Link>
+>>>>>>> Stashed changes
       </div>
     }
 
   return (
     <div>
+<<<<<<< Updated upstream
       <h1>Follow Up Questions: {detectedObject}</h1>
       {content}
+=======
+      {/* <h1>Follow Up Questions: {detectedObject}</h1> */}
+      {content}
+ 
+>>>>>>> Stashed changes
     </div>
   )
 }

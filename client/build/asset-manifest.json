@@ -1,5 +1,6 @@
 {
   "files": {
+<<<<<<< Updated upstream
     "main.css": "/static/css/main.0e16e25d.chunk.css",
     "main.js": "/static/js/main.2d3f2695.chunk.js",
     "main.js.map": "/static/js/main.2d3f2695.chunk.js.map",
@@ -21,5 +22,25 @@
     "static/js/2.e7ecf4cb.chunk.js",
     "static/css/main.0e16e25d.chunk.css",
     "static/js/main.2d3f2695.chunk.js"
+=======
+    "main.css": "/static/css/main.49c624df.chunk.css",
+    "main.js": "/static/js/main.9c6c66ad.chunk.js",
+    "main.js.map": "/static/js/main.9c6c66ad.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.8f49b074.js",
+    "runtime-main.js.map": "/static/js/runtime-main.8f49b074.js.map",
+    "static/js/2.e28a4c72.chunk.js": "/static/js/2.e28a4c72.chunk.js",
+    "static/js/2.e28a4c72.chunk.js.map": "/static/js/2.e28a4c72.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.49c624df.chunk.css.map": "/static/css/main.49c624df.chunk.css.map",
+    "static/js/2.e28a4c72.chunk.js.LICENSE.txt": "/static/js/2.e28a4c72.chunk.js.LICENSE.txt",
+    "static/media/box.1c939293.png": "/static/media/box.1c939293.png",
+    "static/media/App.css": "/static/media/wax.3b8c8e8d.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8f49b074.js",
+    "static/js/2.e28a4c72.chunk.js",
+    "static/css/main.49c624df.chunk.css",
+    "static/js/main.9c6c66ad.chunk.js"
+>>>>>>> Stashed changes
   ]
 }
