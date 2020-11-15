@@ -139,7 +139,7 @@ function ManualModalParent(props) {
 export function FetchModal(props) {
   let {detectedObject} = props;
 
-  let currentObject = (detectedObject || props.history.location.state || "box"); // result from image api
+  let currentObject = (detectedObject || props.location.state || "box"); // result from image api
 
   let [init, setInit] = useState(false);
   let [data, setData] = useState();

@@ -36,6 +36,7 @@ function ImageRecognition(props) {
           <Link className="proceedButton"
               to={{
                   pathname: "/fetching",
+                  state: result
                 }}
           >
           </Link>
