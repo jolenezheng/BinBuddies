@@ -27,6 +27,7 @@
 .loginPage{
   background-image: url('./imgs/login.png');
 }
+
 .wax{
   background-image: url('./imgs/wax.png');
   width: 375px;
@@ -186,6 +187,8 @@
   height: 50px;
   opacity: 0;
 }
+
+
 
 .yesContainer{
   margin-top: 500px;

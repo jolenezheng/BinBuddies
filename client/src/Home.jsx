@@ -5,7 +5,6 @@ import './App.css';
 import history from './history';
 import defaultImage from './imgs/photo.jpg';
 import ImageUploader from 'react-images-upload';
-import defaultImage from './box.png';
 import PlasticForm from './PlasticForm';
 
 function Home(props) {
