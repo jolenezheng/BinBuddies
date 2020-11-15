@@ -10,7 +10,6 @@
   padding: 20px;
 }
 
-<<<<<<< Updated upstream
 .starterPage{
   background-image: url('./imgs/starter.png');
   width: 375px;
@@ -27,7 +26,7 @@
 
 .loginPage{
   background-image: url('./imgs/login.png');
-=======
+}
 .wax{
   background-image: url('./imgs/wax.png');
   width: 375px;
@@ -36,12 +35,10 @@
 
 .glass{
   background-image: url('./imgs/glass.png');
->>>>>>> Stashed changes
   width: 375px;
   height: 667px;
 }
 
-<<<<<<< Updated upstream
 .containerPrompt{
   background-color: white;
   width: 375px;
@@ -160,7 +157,6 @@
 }
 
 /* CONFIRMING SCREEN */
-=======
 .materialPage{
   background-image: url('./imgs/material.png');
   width: 375px;
@@ -190,21 +186,7 @@
   height: 50px;
   opacity: 0;
 }
-.plasticButton{
-  
-}
 
-.metalButton{
-  
-}
-
-.paperButton{
-  
-}
-
-
-
->>>>>>> Stashed changes
 .yesContainer{
   margin-top: 500px;
   margin-left: 34px;
@@ -221,13 +203,10 @@
   opacity: 0;
 }
 
-<<<<<<< Updated upstream
-=======
 .spacer{
   padding-top: 500px;
 }
 
->>>>>>> Stashed changes
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
