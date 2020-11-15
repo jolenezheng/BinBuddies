@@ -14,7 +14,16 @@ function ImageRecognition(props) {
     setInit(true);
   }
   if (!init) {
-    fetchResult();
+    // fetchResult();
+    // fetch(URL, {
+    //   method: 'GET',
+    // })
+    // .then(res => res.json())
+    // .then((json) => {
+    //   setResult(json);
+    //   setInit(true);
+    // })
+    // .catch((e) => console.log(e));
   }
 
 
