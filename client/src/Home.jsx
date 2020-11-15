@@ -159,8 +159,7 @@ export function FetchModal(props) {
   }
 
   let url = `https://data.edmonton.ca/resource/gtej-pcij.json?$where=material_title like '%25${currentObject}%25'`;
-  if (predefined.includes(currentObject)) {
-        //|| 'box') // COMMENT IN TO ACCESS QS FLOW
+  if (predefined.includes(currentObject) || 'jugs') { // COMMENT IN TO ACCESS QS FLOW
 
     // go straight to question/answer flow
     return (<QuestionModal detectedObject={currentObject}/>)
@@ -242,42 +241,37 @@ function QuestionModal(props) {
     // Qs for Item types (Step 1)
     if (detectedObject === 'box' || detectedObject === 'containers') {
       content = (
-        <div>
-          {containerContent[0]}
-          <Button variant="contained" onClick={() => setNextStep('material')}>Yes</Button>
-          <Button variant="contained" onClick={() => setNextStep('follow up')}>No</Button>
+        <div className = "isEmptyCleanDryModal" >
+          <Button className="yesButtonQ" onClick={() => setNextStep('material')}>Yes</Button>
+          <Button className="noButtonQ" onClick={() => setNextStep('follow up')}>No</Button>
         </div>
       )
       if (nextStep === 'follow up') {
         content = (
-          <div>
-            {containerContent[1]}
-            <Button variant="contained" onClick={() => setNextStep('material')}>All Done!</Button>
+          <div className = "emptyCleanDryModal">
+            <Button className="allDoneButtonQ" onClick={() => setNextStep('material')}>All Done!</Button>
           </div>
         )
       }
     }
     else if (detectedObject === 'jugs' || detectedObject === 'bottles') {
       content = (
-        <div>
-          {jugContent[0]}
-          <Button variant="contained" onClick={() => setNextStep('follow up')}>Yes</Button>
-          <Button variant="contained" onClick={() => setNextStep('next')}>No</Button>
+        <div className = "isStrawOrLidModal">
+          <Button className="yesButtonQ" onClick={() => setNextStep('follow up')}>Yes</Button>
+          <Button className="noButtonQ" onClick={() => setNextStep('next')}>No</Button>
         </div>
       ) 
       if (nextStep === 'follow up') {
           content = (
-            <div>
-              {jugContent[1]}
-              <Button variant="contained" onClick={() => setNextStep('next')}>All Done!</Button>
+            <div className="lidsOutModal">
+              <Button className="allDoneButtonQ" onClick={() => setNextStep('next')}>All Done!</Button>
             </div>
           )
       } if (nextStep === 'next') {
           content = (
-            <div>
-              {jugContent[2]}
-              <Button variant="contained" onClick={() => setNextStep('material')}>Yes</Button>
-              <Button variant="contained" onClick={() => setResult('w')}>No</Button>
+            <div className = 'litersModal'>
+              <Button className="yesButtonQ" onClick={() => setNextStep('material')}>Yes</Button>
+              <Button className="noButtonQ" onClick={() => setResult('w')}>No</Button>
             </div>
           )
         }
@@ -323,24 +317,30 @@ function QuestionModal(props) {
         content = (
           <div className = "wax">
             <div className = "spacer">
-              <Button className="yesContainer" variant="contained" onClick={() => setResult('w')}>Yes</Button>
-              <Button className="noContainer" variant="contained" onClick={() => setResult('r')}>No</Button>
+            <Link 
+              to={{
+                pathname: "/final",
+                state: { title: detectedObject, result: "Blue Bin", info: 'Please dispose of you item responsibly!'}
+              }}
+            >
+              <Button className="noContainer" variant="contained" onClick={() => setResult('Recycling')}>No</Button>
+            </Link>
+            <Link 
+              to={{
+                pathname: "/final",
+                state: { title: detectedObject, result: "Waste Bin", info: 'Please dispose of you item responsibly!'}
+              }}
+            >
+              <Button className="yesContainer" variant="contained" onClick={() => setResult('Waste')}>Yes</Button>
+            </Link>
             </div>
           </div>
         )
       }
     }
 
-    // This if statement is not working rn
-    if (result === ('r' || 'w')) {
-      <div>
-        Your {detectedObject} is {result}.
-      </div>
-    }
-
   return (
     <div>
-      <h1>Follow Up Questions: {detectedObject}</h1>
       {content}
     </div>
   )
