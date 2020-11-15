@@ -3,13 +3,10 @@ import {Button, Modal, Typography} from '@material-ui/core/';
 import {Link} from "react-router-dom";
 import './App.css';
 import history from './history';
-<<<<<<< Updated upstream
 import defaultImage from './imgs/photo.jpg';
 import ImageUploader from 'react-images-upload';
-=======
 import defaultImage from './box.png';
 import PlasticForm from './PlasticForm';
->>>>>>> Stashed changes
 
 function Home(props) {
   //closed by default
@@ -321,13 +318,7 @@ function QuestionModal(props) {
         )
       } else if (materialType === 'plastic') {
         content = (
-<<<<<<< Updated upstream
-          <div>
-            Please Enter the SPI Number. (form)
-          </div>
-=======
           <Button variant="contained" onClick={() => setResult('w')}>1</Button>
->>>>>>> Stashed changes
         )
       } else if (materialType === 'paper') {
         content = (
@@ -345,32 +336,13 @@ function QuestionModal(props) {
     if (result === ('r' || 'w')) {
       <div>
         Your {detectedObject} is {result}.
-<<<<<<< Updated upstream
-=======
-        <Link 
-          to={{
-            pathname: "/final",
-            state: { title: {detectedObject}, result: {result}, info: null}
-          }}
-      >
-        <Button>
-          {detectedObject}
-        </Button>
-      </Link>
->>>>>>> Stashed changes
       </div>
     }
 
   return (
     <div>
-<<<<<<< Updated upstream
       <h1>Follow Up Questions: {detectedObject}</h1>
       {content}
-=======
-      {/* <h1>Follow Up Questions: {detectedObject}</h1> */}
-      {content}
- 
->>>>>>> Stashed changes
     </div>
   )
 }
