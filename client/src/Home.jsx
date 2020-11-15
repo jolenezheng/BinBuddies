@@ -181,7 +181,8 @@ export function FetchModal(props) {
   }
 
   return (
-    <div>
+    <div className="resultOptions">
+      <div className="resultOptionsScroll">
       {data && (data.length > 1) 
         && data.map((data, i) => {
           return (
@@ -190,6 +191,7 @@ export function FetchModal(props) {
                     pathname: "/final",
                     state: { title: data["material_title"], result: data["stream_title"], info: data["special_instructions"]}
                   }}
+                  className="resultOptionsButton"
             >
               <Button>
                 {data["material_title"]}
@@ -197,6 +199,7 @@ export function FetchModal(props) {
             </Link>
           )
       })}
+      </div>
     </div>
   )
 }
