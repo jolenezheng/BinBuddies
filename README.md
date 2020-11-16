@@ -8,6 +8,8 @@ Google Cloud Vision API to detect + extract objects from a user uploaded image o
 Socrata Open Data API to query the Waste and Recycling Material List (from the city of Edmonton). As Bin Buddies gains users in new areas, new data sets can be added and queried.
 
 Slide Deck: https://docs.google.com/presentation/d/1H08Loh_2Tw90QNA1SXf87gEGCIPzDvbDMb0ArZEJ8gs/edit?usp=sharing
+Devpost: https://devpost.com/software/bin-buddies
+Figma: https://www.figma.com/file/glVOMLCU4wPdszvpC5r1JQ/hackathon!!!!!
 
 # Try out our project!
 In the project directory, run:
