@@ -18,3 +18,7 @@ In the project directory, run:
 you can then access the project at http://localhost:9000/
 
 (google cloud api json and keys must be present to use the google cloud vision api)
+
+Run the following command, and replace [PATH] with the file path of the JSON file that contains your service account key. This variable only applies to your current shell session, so if you open a new session, set the variable again.
+
+### `export GOOGLE_APPLICATION_CREDENTIALS=[PATH]`
