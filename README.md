@@ -11,7 +11,7 @@ Slide Deck: https://docs.google.com/presentation/d/1H08Loh_2Tw90QNA1SXf87gEGCIPz
 
 Devpost: https://devpost.com/software/bin-buddies
 
-Figma: https://www.figma.com/file/glVOMLCU4wPdszvpC5r1JQ/hackathon!!!!!
+Figma: https://www.figma.com/file/glVOMLCU4wPdszvpC5r1JQ/BostonHacks?node-id=1%3A854
 
 # Try out our project!
 In the project directory, run:
