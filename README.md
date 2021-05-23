@@ -7,6 +7,8 @@ Bin Buddies is a scalable full-stack web app that was designed for mobile screen
 Google Cloud Vision API to detect + extract objects from a user uploaded image of what is being thrown out, and
 Socrata Open Data API to query the Waste and Recycling Material List (from the city of Edmonton). As Bin Buddies gains users in new areas, new data sets can be added and queried.
 
+Video Walkthrough: https://youtu.be/PdNG9gFbcsU
+
 Slide Deck: https://docs.google.com/presentation/d/1H08Loh_2Tw90QNA1SXf87gEGCIPzDvbDMb0ArZEJ8gs/edit?usp=sharing
 
 Devpost: https://devpost.com/software/bin-buddies
